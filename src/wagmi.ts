@@ -1,11 +1,19 @@
 import { http, cookieStorage, createConfig, createStorage } from 'wagmi';
-import { base } from 'wagmi/chains'; // add baseSepolia for testing
-import { coinbaseWallet } from 'wagmi/connectors';
+import { base, baseSepolia } from 'wagmi/chains'; // add baseSepolia for testing
+import { metaMask, walletConnect, coinbaseWallet } from 'wagmi/connectors';
  
 export function getConfig() {
   return createConfig({
-    chains: [base], // add baseSepolia for testing
+    chains: [base, baseSepolia], // add baseSepolia for testing
     connectors: [
+      metaMask({
+        dappMetadata: {
+          name: "OnchainKit",
+        },
+      }),
+      walletConnect({
+        projectId: "",
+      }),
       coinbaseWallet({
         appName: "OnchainKit",
         preference: 'all',
@@ -17,7 +25,8 @@ export function getConfig() {
     }),
     ssr: true,
     transports: {
-      [base.id]: http(), // add baseSepolia for testing
+      [base.id]: http(),
+      [baseSepolia.id]: http(),
     },
   });
 }

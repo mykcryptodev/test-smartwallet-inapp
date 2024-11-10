@@ -6,6 +6,11 @@ export function getConfig() {
   return createConfig({
     chains: [base, baseSepolia], // add baseSepolia for testing
     connectors: [
+      coinbaseWallet({
+        appName: "OnchainKit",
+        preference: 'all',
+        version: '4',
+      }),
       metaMask({
         dappMetadata: {
           name: "OnchainKit",
@@ -13,11 +18,6 @@ export function getConfig() {
       }),
       walletConnect({
         projectId: "",
-      }),
-      coinbaseWallet({
-        appName: "OnchainKit",
-        preference: 'all',
-        version: '4',
       }),
     ],
     storage: createStorage({
